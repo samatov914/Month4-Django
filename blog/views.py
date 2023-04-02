@@ -5,7 +5,7 @@ from django.http import HttpResponse
 # get_about/ -> "About"
 # get_contacts/ -> 
 
-def hello(request):
+def get_hello(request):
     heading = """<h1> Заголовок 1 lvl</h1>
     <h2> Загаловок 2 lvl
     
