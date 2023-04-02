@@ -19,4 +19,10 @@ def get_hello(request):
     # </html>
     #                  """
 
-    return HttpResponse("Hello", headers={"Name": "Alex"}, status=500)
+    return HttpResponse("Hello", headers={"Name": "Alex"}, status=200)
+
+def get_contacts(request):
+    return HttpResponse("Number", headers={"Name": "Alex"}, status=200)
+
+def get_about(request):
+    return HttpResponse("About", headers={"Name": "Alex"}, status=200)
