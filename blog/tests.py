@@ -1,26 +1,23 @@
 from django.test import TestCase, Client
 from django.urls import reverse
+# Create your tests here.
 
-
-class BlogViewTestCase(TestCase):
+class ViewsTextCase(TestCase):
     def setUp(self):
         self.client = Client()
 
     def test_hello(self):
-        response = self.client.get(reverse("index-page"))
-        expected_data = "Hello"
-        self.assertEqual(expected_data, response.content.decode())
-        self.assertEqual(500, response.status_code)
-        self.assertEqual(response["Name"], "Alex")
+        response = self.client.get(reverse("index-page"))  
+        self.assertTemplateUsed(response, "blog/index.html")
+
+
 
     def test_about(self):
-        response = self.client.get(reverse("about-view"))
-        expected_data = "About"
-        self.assertEqual(expected_data, response.content.decode())
-        self.assertEqual(200, response.status_code)
+        response = self.client.get(reverse('about-view'))
+        self.assertTemplateUsed(response, "blog/about.html")
+
+
 
     def test_contacts(self):
-        response = self.client.get(reverse("contacts-view"))
-        expected_data = "Contacts"
-        self.assertEqual(expected_data, response.content.decode())
-        self.assertEqual(200, response.status_code)
+        response = self.client.get(reverse('contacts-view'))
+        self.assertTemplateUsed(response, "blog/contacts.html")
