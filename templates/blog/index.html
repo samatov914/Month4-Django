@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Первая вьюха с шаблоном</h1>
+    {#{{ my_list }}#}
+    <ol>
+        {% for post in posts %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ol>
+
+    <a <="{% url 'about-view' %}">
+        О нас
+           </a>
+       
+           <a <="{% url 'contacts-view' %}">
+        Контакты
+           </a>
+{% endblock %}
+
+print('ss')
