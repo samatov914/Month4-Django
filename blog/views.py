@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
-from blog.models import Post
+from blog.models import Post,Comment
+
+from blog.forms import Comment
+from blog.forms import CommentForm
 
 
 # Read/Retrieve
@@ -18,6 +21,29 @@ class PostDetailView(generic.DetailView):
     model = Post
     context_object_name = "post"
     template_name = "blog/post_detail.html"
+    extra_context = {"form": CommentForm()}
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = CommentForm()
+        return context
+
+    def post(self,request, pk):
+        post = Post.objects.get(pk=pk)
+        form  = CommentForm(request.POST)
+        if form.is_valid():
+            pre_saved_comment = form.save(commit=False)
+            pre_saved_comment =post
+            pre_saved_comment.save()
+        # username = request.POST.get("username_input", None)
+        # text = request.POST.get("text", None)
+
+        # if username and text:
+        #     comment = Comment.objects.create(username=username, text = text, post = post)
+        #     comment.save()
+        return redirect("post-detail.html")
+
+          
 
 
 # CREATE
@@ -34,6 +60,7 @@ class PostDeleteView(generic.DeleteView):
     template_name = "blog/post_delete.html"
     success_url = reverse_lazy("index-page")
     fields = ["title", "content"]
+
 class PostDeleteConfirimView(generic.DeleteView):
     model = Post
     template_name = "blog/post_delete_confirm.html"
