@@ -4,14 +4,20 @@
 {% endblock %}
 {% block content %}
 
-    <form action="" method="post">
-    {% csrf_token %}
+    
 
-        {{ form.as_p}}
+<form>
+    <label for="title">Заголовок:</label>
+    <input type="text" id="title" name="title"><br><br>
+    <label for="content">Содержание:</label>
+    <textarea id="content" name="content"></textarea><br><br>
+    <input type="submit" value="Опубликовать">
+</form>
 
-        <button type="submit">Создать запись</button>
 
-    </form>
+<a href="{% url 'index-page' %}">На главную</a>
 
-    <a href="{% url 'index-page' %}">На главную</a>
+
 {% endblock %}
+
+

@@ -6,6 +6,13 @@ from blog.models import Post,Comment
 from blog.forms import Comment
 from blog.forms import CommentForm
 
+#hm6
+
+from django.views.generic.edit import CreateView
+from .models import Post
+from .forms import PostForm
+
+
 
 # Read/Retrieve
 class IndexView(generic.ListView):
@@ -47,11 +54,14 @@ class PostDetailView(generic.DetailView):
 
 
 # CREATE
-class PostCreateView(generic.CreateView):
+from django.views.generic.edit import CreateView
+from .models import Post
+from .forms import PostForm
+
+class PostCreateView(CreateView,generic):
     model = Post
-    template_name = "blog/post_create.html"
-    success_url = reverse_lazy("index-page")
-    fields = ["title", "content"]
+    form_class = PostForm
+    template_name = 'post_create.html'
 
 
 # # DELETE
