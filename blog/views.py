@@ -22,6 +22,11 @@ class IndexView(generic.ListView):
     template_name = "blog/index.html"
     # extra_context = {"title": "Главная страница"}
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = ''
+        return context
+
 
 # Read/Retrieve
 class PostDetailView(generic.DetailView):
@@ -30,10 +35,6 @@ class PostDetailView(generic.DetailView):
     template_name = "blog/post_detail.html"
     extra_context = {"form": CommentForm()}
 
-    def get_context_data(self,**kwargs):
-        context = super().get_context_data(**kwargs)
-        context["form"] = CommentForm()
-        return context
 
     def post(self,request, pk):
         post = Post.objects.get(pk=pk)
@@ -54,9 +55,7 @@ class PostDetailView(generic.DetailView):
 
 
 # CREATE
-from django.views.generic.edit import CreateView
-from .models import Post
-from .forms import PostForm
+ 
 
 class PostCreateView(CreateView,generic):
     model = Post
